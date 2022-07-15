@@ -1,16 +1,16 @@
 const express = require('express');
+const history = require('connect-history-api-fallback');
 const email = require('./email');
-
+const path = require('path');
 const app = express();
 const port = 3000 || process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(history({ index: './dist/index.html' }));
+app.use(express.static(path.join(__dirname, './dist')));
 
-app.get('/', (req, res) => {
-  res.json({message: 'alive'});
-})
-
+app.get(/.*/,(req,res)=>res.sendFile(path.resolve(__dirname,'./dist/index.html')))
 
 app.post('/api/contact/send', async (req, res, next) => {
   try {

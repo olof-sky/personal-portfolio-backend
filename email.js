@@ -16,7 +16,7 @@ function getMessage(emailParams) {
 async function sendEmail(emailParams, res) {
   try {
     await sendGridMail.send(getMessage(emailParams));
-    res.redirect('http://localhost:8080/contact/sent');
+    res.redirect('/contact/sent');
   } catch (error) {
     const message = `Error sending email`;
     const errorCode = error.code;
